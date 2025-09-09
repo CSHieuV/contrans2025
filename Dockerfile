@@ -6,7 +6,7 @@ COPY requirements.txt requirements.txt
 
 RUN pip install -r requirements.txt
 
-ENV secretpassword=password 
+ENV secretpassword=SECRETPASSWORD
 
 WORKDIR /contrans2025
 
