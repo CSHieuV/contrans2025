@@ -16,11 +16,10 @@ services:
       - "5432:5432"
 
     volumes:
-      - ....:/var/lib/postgresql/18/docker
+      - postgres_data:/var/lib/postgresql/18/docker
 
 volumes:
   postgres_data:
-    driver: local
   
 # networks:
 
