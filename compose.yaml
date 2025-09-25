@@ -1,25 +1,60 @@
 services:
   jupyterlab:
     image: jupyterdocker
-    env_file: 
+    env_file:
       - .env
     ports:
       - "8888:8888"
     volumes:
       - ./:/contrans2025
-    
+    networks:
+      - dbnetwork
+
   postgres:
     image: postgres
-    env_file: 
+
+    #Question 1: What environmental variables are required by this image?
+    env_file:
       - .env
+
+    #Question 2: Does the software have a port (inside the container) it runs on by default?
     ports:
       - "5432:5432"
 
+    #Question 3: What folder inside the container stores the data you need to save?
     volumes:
-      - postgres_data:/var/lib/postgresql/18/docker
+      - postgresdata:/var/lib/postgresql/18/docker
+
+    networks:
+      - dbnetwork
+
+  mysql:
+    image: mysql
+    env_file:
+      - .env
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysqldata:/var/lib/mysql
+
+    networks:
+      - dbnetwork
+
+  mongo:
+    image: mongo
+    env_file:
+      - .env
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodata:/data/db
+    networks:
+      - dbnetwork
 
 volumes:
-  postgres_data:
-  
-# networks:
+  postgresdata:
+  mysqldata:
+  mongodata:
 
+networks:
+  dbnetwork:
